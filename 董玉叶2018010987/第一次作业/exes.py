@@ -15,7 +15,7 @@ import random
 import string
 
 #数据生成
-def rangedata_creat(dtype, drange, dnum):
+def rangedata_creat(dtype, drange_low,drange_high, dnum,strlen=10):
     '''
     :Description: Generate a given condition random data list.
     :param dtype: the datatype you want to sample including int, float, string.
@@ -32,16 +32,16 @@ def rangedata_creat(dtype, drange, dnum):
         L = []
         if dtype is int:
 
-            L = [random.randint(drange) for _ in range(dnum)]
+            L = [random.randint(drange_low,drange_high) for _ in range(dnum)]
 
 
 
         elif dtype is float:
-            L = [random.uniform(drange) for _ in range(dnum)]
+            L = [random.uniform(drange_low,drange_high)for _ in range(dnum)]
 
 
         elif dtype is string:
-            L = [''.join(random.sample(chars, 10)) for _ in range(dnum)]  # 列表转字符串
+            L = [''.join(random.sample(chars, strlen)) for _ in range(dnum)]  # 列表转字符串
 
 
 
@@ -113,7 +113,7 @@ def apply():
 
     print('Test 1:')
     #test int
-    S = rangedata_creat(int,(0,100), 23)
+    S = rangedata_creat(int,0,100, 23)
 
     print('生成int型随机数：')
     print(S)
@@ -121,7 +121,7 @@ def apply():
     print('\n')
     #test float
     print('Test 2:')
-    S = rangedata_creat(float,(1.00,100.00),23)
+    S = rangedata_creat(float,1.00,100.00,23)
     print('生成float型随机数：')
     print(S)
     print( data_select(S,20.00,34.00))#筛选范围为20-34的浮点数
@@ -129,7 +129,7 @@ def apply():
 
     #test string
     print('Test3:')
-    S = rangedata_creat(string, chars, 20)#生成20个长度为10的字符串
+    S = rangedata_creat(string,chars,chars, 20)#生成20个长度为10的字符串
     print('生成随机字符串：')
     print(S)
     print(data_select(S,'T','t'))#筛选带有't'和'T'的字符串
